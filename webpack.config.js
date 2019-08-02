@@ -1,7 +1,11 @@
 module.exports = {
   mode: 'development',
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: [
+      '.js',
+      '.jsx',
+      '.mdx',
+    ],
   },
   module: {
     rules: [
@@ -11,8 +15,11 @@ module.exports = {
       },
       {
         test: /\.mdx?$/,
-        use: ['babel-loader', '@mdx-js/loader']
-      }
-    ]
-  }
+        use: [
+          'babel-loader',
+          '@mdx-js/loader'
+        ],
+      },
+    ],
+  },
 }
