@@ -1,2 +1,7 @@
 # andrewcarr.design
-This time it'll be different!
+
+It will be different this time! I swear!
+
+```sh
+npm i && npm start
+```
