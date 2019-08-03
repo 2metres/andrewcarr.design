@@ -1,31 +1,23 @@
 {
   "private": true,
-  "name": "andrewcarr.design",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack -p"
+    "tailwind": "postcss src/styles/tailwind.src.css -o src/styles/tailwind.css",
+    "start": "npm run tailwind && charge serve src",
+    "build": "npm run tailwind && charge build src dist"
   },
-  "author": "Andrew Carr <andrw.carr@gmail.com>",
-  "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.4",
-    "@babel/plugin-transform-react-jsx": "^7.3.0",
-    "@babel/plugin-transform-runtime": "^7.5.5",
-    "@babel/preset-env": "^7.5.4",
-    "@babel/runtime": "^7.5.5",
-    "@mdx-js/loader": "^1.1.4",
-    "@mdx-js/mdx": "^1.1.4",
-    "babel-loader": "^8.0.5",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "superfine": "^7.0.0",
-    "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.3.1"
+    "@static/charge": "^1.4.1",
+    "classcat": "^4.0.2",
+    "cssnano": "^4.1.10",
+    "eslint": "^5.16.0",
+    "eslint-plugin-mdx": "^1.0.1",
+    "eslint-plugin-react": "^7.14.3",
+    "postcss-cli": "^6.1.3",
+    "tailwindcss": "^1.0.6"
   },
-  "dependencies": {}
+  "browserslist": [
+    ">0.50%",
+    "not ie 11",
+    "not op_mini all"
+  ]
 }
