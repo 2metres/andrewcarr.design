@@ -4,13 +4,14 @@ const Header = ({
   title,
   subtitle,
 }) => (
-  <header className="p-12">
+  <header className="px-12 py-24">
     <div className="container mx-auto">
       <h1
         className={cc([
-          'text-6xl',
+          'text-5xl',
           'font-display',
           'leading-none',
+          'tracking-tight',
           'mb-6',
         ])}
       >
@@ -19,8 +20,8 @@ const Header = ({
       <h2
         className={cc([
           'text-lg',
-          'font-body',
-          'text-gray-700',
+          'font-display',
+          'text-gray-600',
         ])}
       >
         { subtitle }

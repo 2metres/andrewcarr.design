@@ -1,10 +1,12 @@
 module.exports = {
   theme: {
     fontFamily: {
-      display: ['"Work Sans"', 'monospace'],
-      body: ['"Roboto Mono"', 'sans-serif'],
+      display: ['"Roboto Mono"', 'monospace'],
+      body: ['"Roboto"', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      gray: '#595959',
+    },
   },
   variants: {},
   plugins: [],

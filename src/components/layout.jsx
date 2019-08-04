@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
         <title>Andrew Carr – Product Designer</title>
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,200,300|Work+Sans:100&display=swap"
+          href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,200,300,400,500,600,700,800,900|Roboto:100,200,300,400,500,600,700,800,900&display=swap"
         />
         <link
           rel="stylesheet"

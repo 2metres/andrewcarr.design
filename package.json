@@ -8,6 +8,7 @@
   "devDependencies": {
     "@static/charge": "^1.4.1",
     "classcat": "^4.0.2",
+    "color-contrast-checker": "^1.5.0",
     "cssnano": "^4.1.10",
     "eslint": "^5.16.0",
     "eslint-plugin-mdx": "^1.0.1",
