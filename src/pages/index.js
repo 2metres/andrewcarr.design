@@ -34,7 +34,7 @@ const query = graphql`
 const IndexPage = () => {
   const data = useStaticQuery(query)
 
-  const projects = data.allProjectsJson.edges.map(p => p.node)
+  const projects = data.allProjectsJson.edges.map(e => e.node)
 
   return (
     <Layout>
