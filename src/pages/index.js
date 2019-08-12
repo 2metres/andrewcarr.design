@@ -1,96 +1,94 @@
-import React from "react"
-import {
-  useStaticQuery,
-  graphql,
-  Link
-} from 'gatsby'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { graphql } from 'gatsby'
+import styled from 'styled-components'
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import { Card, Header, Layout } from '../components'
+import config from '../../config/site'
 
-const query = graphql`
-  query {
-    allProjectsJson {
-      edges {
-        node {
-          id
-          title
-          subtitle
-          description
-          background
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(${props => props.theme.gridColumns}, 1fr);
+  grid-gap: 50px;
 
-          subProject {
-            id
-            title
-            description
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  .gatsby-image-outer-wrapper,
+  .gatsby-image-wrapper {
+    position: static !important;
+  }
+`
+
+const Content = styled.div`
+  margin: -6rem auto 0 auto;
+  max-width: ${props => props.theme.maxWidths.general};
+  padding: 0 ${props => props.theme.contentPadding} 6rem;
+  position: relative;
+`
+
+const BG = styled.div`
+  background-color: ${props => props.theme.colors.bg};
+`
+
+const Index = ({
+  data: {
+    allMdx: { nodes },
+  },
+}) => (
+  <Layout>
+    <Header avatar={config.avatar} name={config.name} location={config.location} socialMedia={config.socialMedia} />
+    <BG>
+      <Content>
+        <Grid>
+          {nodes.map((project, index) => (
+            <Card
+              delay={index}
+              date={project.frontmatter.date}
+              title={project.frontmatter.title}
+              cover={project.frontmatter.cover.childImageSharp.fluid}
+              path={project.fields.slug}
+              areas={project.frontmatter.areas}
+              key={project.fields.slug}
+            />
+          ))}
+        </Grid>
+      </Content>
+    </BG>
+  </Layout>
+)
+
+export default Index
+
+Index.propTypes = {
+  data: PropTypes.shape({
+    allMdx: PropTypes.shape({
+      nodes: PropTypes.array.isRequired,
+    }),
+  }).isRequired,
+}
+
+export const pageQuery = graphql`
+  query HomeQuery {
+    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
+      nodes {
+        fields {
+          slug
+        }
+        frontmatter {
+          cover {
+            childImageSharp {
+              fluid(maxWidth: 760, quality: 90) {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+            }
           }
+          date(formatString: "DD.MM.YYYY")
+          title
+          areas
         }
       }
     }
   }
 `
-
-const IndexPage = () => {
-  const data = useStaticQuery(query)
-
-  const projects = data.allProjectsJson.edges.map(e => e.node)
-
-  return (
-    <Layout>
-      <SEO title="Home" />
-      {
-        projects.map(p => {
-          const {
-            id,
-            background,
-            title,
-            subtitle,
-            description,
-            projectLink,
-            subProject,
-          } = p
-
-          return (
-            <section
-              key={id}
-              className="px-12 py-24"
-              style={{
-                background,
-              }}
-            >
-              <div className="container mx-auto">
-                <Image />
-                <h2 className="text-4xl font-display uppercase font-black">{ title }</h2>
-                { !!subtitle && <h4 className="text-xl font-display">{ subtitle }</h4> }
-                { !!description && <p className="mt-2 text-lg font-body font-light">{ description }</p> }
-                {
-                  !!projectLink && (
-                    <Link
-                      rel="external noopener noreferrer"
-                      className="btn btn-blue my-8 font-display"
-                      href={projectLink}
-                      target="_blank"
-                    >
-                      Project Link
-                    </Link>
-                  )
-                }
-                {
-                  !!subProject && subProject.map(s => (
-                    <div key={s.id} className="mb-12">
-                      <h4 className="text-2xl font-display">{ s.title }</h4>
-                      {!!s.description && <p className="mt-2 text-lg font-body font-light">{s.description}</p>}
-                    </div>
-                  ))
-                }
-              </div>
-            </section>
-          )
-        })
-      }
-    </Layout>
-  )
-}
-
-export default IndexPage
