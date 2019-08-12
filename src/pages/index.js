@@ -6,7 +6,7 @@ import {
 } from 'gatsby'
 
 import Layout from "../components/layout"
-// import Image from "../components/image"
+import Image from "../components/image"
 import SEO from "../components/seo"
 
 const query = graphql`
@@ -60,6 +60,7 @@ const IndexPage = () => {
               }}
             >
               <div className="container mx-auto">
+                <Image />
                 <h2 className="text-4xl font-display uppercase font-black">{ title }</h2>
                 { !!subtitle && <h4 className="text-xl font-display">{ subtitle }</h4> }
                 { !!description && <p className="mt-2 text-lg font-body font-light">{ description }</p> }
