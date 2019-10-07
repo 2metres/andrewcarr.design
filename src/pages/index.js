@@ -8,14 +8,13 @@ import SEO from "../components/seo"
 const IndexPage = () => {
   const { allMdx: { nodes }} = useStaticQuery(graphql`
     query SiteProjectQuery {
-      allMdx(sort: {fields: frontmatter___background}) {
+      allMdx {
         nodes {
           frontmatter {
             title
             subtitle
             description
             background
-            color
             projectLink
             areas
             subProject {
@@ -39,7 +38,6 @@ const IndexPage = () => {
               subtitle,
               description,
               background,
-              color,
               projectLink,
               subProject,
               areas,
@@ -51,11 +49,10 @@ const IndexPage = () => {
               className="px-12 py-24 min-h-screen flex items-center"
               style={{
                 background,
-                color,
               }}
             >
               <div className="container mx-auto">
-                <h2 className="text-4xl font-display uppercase leading-none mb-5 font-black">{ title }</h2>
+                <h2 className="text-4xl font-display uppercase font-black">{ title }</h2>
                 { !!subtitle && <h4 className="text-xl font-display">{ subtitle }</h4> }
                 { !!description && <p className="mt-2 text-lg font-body font-light">{ description }</p> }
                 {
@@ -73,7 +70,7 @@ const IndexPage = () => {
                 {
                   !!subProject && subProject.map(s => (
                     <div className="mb-12">
-                      <h4 className="text-2xl uppercase font-black font-display">{ s.title }</h4>
+                      <h4 className="text-2xl font-display">{ s.title }</h4>
                       {!!s.description && <p className="mt-2 text-lg font-body font-light">{s.description}</p>}
                     </div>
                   ))
