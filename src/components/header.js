@@ -7,18 +7,10 @@ const Header = ({
   description,
 }) => (
   <header
-    style={{
-      marginBottom: `1.45rem`,
-    }}
+    className="px-12 py-24"
   >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
+    <div className="container mx-auto">
+      <h1 className="text-3xl font-display font-black">
         {title}
       </h1>
       <h3>
