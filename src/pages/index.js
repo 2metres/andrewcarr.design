@@ -17,6 +17,10 @@ const IndexPage = () => {
             background
             projectLink
             areas
+            subProject {
+              title
+              description
+            }
           }
         }
       }
@@ -35,6 +39,7 @@ const IndexPage = () => {
               description,
               background,
               projectLink,
+              subProject,
               areas,
             }
           } = project
@@ -62,14 +67,14 @@ const IndexPage = () => {
                     </a>
                   )
                 }
-                {/* {
+                {
                   !!subProject && subProject.map(s => (
-                    <div key={s.id} className="mb-12">
+                    <div className="mb-12">
                       <h4 className="text-2xl font-display">{ s.title }</h4>
                       {!!s.description && <p className="mt-2 text-lg font-body font-light">{s.description}</p>}
                     </div>
                   ))
-                } */}
+                }
               </div>
             </section>
           )
