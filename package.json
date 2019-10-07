@@ -1,31 +1,48 @@
 {
-  "private": true,
   "name": "andrewcarr.design",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack -p"
-  },
+  "private": true,
+  "description": "Andrew Carr – Designer/Developer and All-around friendly giant",
+  "version": "0.1.0",
   "author": "Andrew Carr <andrw.carr@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.4",
-    "@babel/plugin-transform-react-jsx": "^7.3.0",
-    "@babel/plugin-transform-runtime": "^7.5.5",
-    "@babel/preset-env": "^7.5.4",
-    "@babel/runtime": "^7.5.5",
-    "@mdx-js/loader": "^1.1.4",
-    "@mdx-js/mdx": "^1.1.4",
-    "babel-loader": "^8.0.5",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "superfine": "^7.0.0",
-    "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.3.1"
+  "dependencies": {
+    "@mdx-js/mdx": "^1.5.0",
+    "@mdx-js/react": "^1.5.0",
+    "gatsby": "^2.15.29",
+    "gatsby-image": "^2.2.24",
+    "gatsby-plugin-manifest": "^2.2.20",
+    "gatsby-plugin-mdx": "^1.0.47",
+    "gatsby-plugin-offline": "^3.0.11",
+    "gatsby-plugin-postcss": "^2.1.10",
+    "gatsby-plugin-react-helmet": "^3.1.10",
+    "gatsby-plugin-sharp": "^2.2.28",
+    "gatsby-source-filesystem": "^2.1.29",
+    "gatsby-transformer-sharp": "^2.2.20",
+    "prop-types": "^15.7.2",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-helmet": "^5.2.1"
   },
-  "dependencies": {}
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "tailwindcss": "^1.1.2"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/2metres/andrewcarr.design"
+  },
+  "bugs": {
+    "url": "https://github.com/2metres/andrewcarr.design"
+  }
 }
