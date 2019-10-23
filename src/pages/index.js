@@ -1,5 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import Carousel from "nuka-carousel"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -15,6 +16,7 @@ const IndexPage = () => {
             subtitle
             description
             background
+            color
             projectLink
             imagePrefix
             areas
@@ -31,7 +33,12 @@ const IndexPage = () => {
             id
             base
             childImageSharp {
-              fluid(maxWidth: 300, maxHeight: 300, fit: CONTAIN) {
+              fluid(
+                maxWidth: 1024,
+                maxHeight: 768,
+                fit: CONTAIN,
+                background: "transparent"
+              ) {
                 base64
                 aspectRatio
                 src
@@ -56,6 +63,7 @@ const IndexPage = () => {
               subtitle,
               description,
               background,
+              color,
               projectLink,
               imagePrefix,
               subProject,
@@ -64,14 +72,15 @@ const IndexPage = () => {
           } = project
 
           const images = data.images.edges
-          .filter(edge => edge.node.base.includes(imagePrefix))
-          .map(edge => edge.node.childImageSharp)
+            .filter(edge => edge.node.base.includes(imagePrefix))
+            .map(edge => edge.node.childImageSharp)
 
           return (
             <section
               className="px-12 py-24 min-h-screen flex items-center"
               style={{
                 background,
+                color: color || 'black',
               }}
               key={idx}
             >
@@ -92,7 +101,21 @@ const IndexPage = () => {
                   )
                 }
                 {
-                  !!images && images.map(i => (
+                  images.length > 1 && (
+                    <Carousel
+                      renderCenterLeftControls={() => {}}
+                      renderCenterRightControls={() => {}}
+                    >
+                    {
+                      images.map(i => (
+                        <Img fluid={[i.fluid]} key={i.fluid.src} />
+                      ))
+                    }
+                    </Carousel>
+                  )
+                }
+                {
+                  (!!images && images.length === 1) && images.map(i => (
                     <Img fluid={[i.fluid]} key={i.fluid.src} />
                   ))
                 }
