@@ -4,11 +4,12 @@ import { useStaticQuery, graphql } from "gatsby"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
+import Img from "gatsby-image"
 
 const IndexPage = () => {
-  const { allMdx: { nodes }} = useStaticQuery(graphql`
-    query SiteProjectQuery {
-      allMdx {
+  const data = useStaticQuery(graphql`
+    {
+      mdx: allMdx {
         nodes {
           frontmatter {
             title
@@ -16,10 +17,28 @@ const IndexPage = () => {
             description
             background
             projectLink
+            imagePrefix
             areas
             subProject {
               title
               description
+            }
+          }
+        }
+      }
+      images: allFile(filter: {extension: {regex: "/(jpg)|(png)|(jpeg)/"}, relativeDirectory: {eq: ""}}) {
+        edges {
+          node {
+            id
+            base
+            childImageSharp {
+              fluid(maxWidth: 300, maxHeight: 300) {
+                base64
+                aspectRatio
+                src
+                srcSet
+                sizes
+              }
             }
           }
         }
@@ -31,7 +50,7 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Andrew Carr – Designer/Developer and All-around friendly giant" />
       {
-        nodes.map((project, idx) => {
+        data.mdx.nodes.map((project, idx) => {
           const {
             frontmatter: {
               title,
@@ -39,10 +58,15 @@ const IndexPage = () => {
               description,
               background,
               projectLink,
+              imagePrefix,
               subProject,
               areas,
             }
           } = project
+
+          const images = data.images.edges
+          .filter(edge => edge.node.base.includes(imagePrefix))
+          .map(edge => edge.node.childImageSharp)
 
           return (
             <section
@@ -66,6 +90,11 @@ const IndexPage = () => {
                       Project Link
                     </a>
                   )
+                }
+                {
+                  !!images && images.map(i => (
+                    <Img fluid={[i.fluid]} />
+                  ))
                 }
                 {
                   !!subProject && subProject.map(s => (
