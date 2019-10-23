@@ -2,13 +2,13 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
+import Img from "gatsby-image"
 
 const IndexPage = () => {
-  const { allMdx: { nodes }} = useStaticQuery(graphql`
-    query SiteProjectQuery {
-      allMdx {
+  const data = useStaticQuery(graphql`
+    {
+      mdx: allMdx {
         nodes {
           frontmatter {
             title
@@ -16,10 +16,28 @@ const IndexPage = () => {
             description
             background
             projectLink
+            imagePrefix
             areas
             subProject {
               title
               description
+            }
+          }
+        }
+      }
+      images: allFile(filter: {extension: {regex: "/(jpg)|(png)|(jpeg)/"}}) {
+        edges {
+          node {
+            id
+            base
+            childImageSharp {
+              fluid(maxWidth: 300, maxHeight: 300, fit: CONTAIN) {
+                base64
+                aspectRatio
+                src
+                srcSet
+                sizes
+              }
             }
           }
         }
@@ -31,7 +49,7 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Andrew Carr – Designer/Developer and All-around friendly giant" />
       {
-        nodes.map((project, idx) => {
+        data.mdx.nodes.map((project, idx) => {
           const {
             frontmatter: {
               title,
@@ -39,10 +57,15 @@ const IndexPage = () => {
               description,
               background,
               projectLink,
+              imagePrefix,
               subProject,
-              areas,
+              /* areas, */
             }
           } = project
+
+          const images = data.images.edges
+          .filter(edge => edge.node.base.includes(imagePrefix))
+          .map(edge => edge.node.childImageSharp)
 
           return (
             <section
@@ -50,6 +73,7 @@ const IndexPage = () => {
               style={{
                 background,
               }}
+              key={idx}
             >
               <div className="container mx-auto">
                 <h2 className="text-4xl font-display uppercase font-black">{ title }</h2>
@@ -60,7 +84,7 @@ const IndexPage = () => {
                     <a
                       className="btn btn-blue my-8 font-display"
                       href={projectLink}
-                      rel="external"
+                      rel="noopener noreferrer"
                       target="_blank"
                     >
                       Project Link
@@ -68,8 +92,13 @@ const IndexPage = () => {
                   )
                 }
                 {
+                  !!images && images.map(i => (
+                    <Img fluid={[i.fluid]} key={i.fluid.src} />
+                  ))
+                }
+                {
                   !!subProject && subProject.map(s => (
-                    <div className="mb-12">
+                    <div className="mb-12" key={s.title+s.description}>
                       <h4 className="text-2xl font-display">{ s.title }</h4>
                       {!!s.description && <p className="mt-2 text-lg font-body font-light">{s.description}</p>}
                     </div>
