@@ -84,8 +84,8 @@ const IndexPage = () => {
               }}
               key={idx}
             >
-              <div className="container mx-auto">
-                <h2 className="text-4xl font-display uppercase font-black">{ title }</h2>
+              <div className="container max-w-4xl mx-auto">
+                <h2 className="text-4xl font-display uppercase leading-none font-black">{ title }</h2>
                 { !!subtitle && <h4 className="text-xl font-display">{ subtitle }</h4> }
                 { !!description && <p className="mt-2 text-lg font-body font-light">{ description }</p> }
                 {

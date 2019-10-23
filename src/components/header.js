@@ -8,7 +8,7 @@ const Header = ({
   <header
     className="px-12 py-24"
   >
-    <div className="container mx-auto">
+    <div className="container max-w-4xl mx-auto">
       <h1 className="text-5xl font-display leading-none break-words uppercase mb-5 font-black">
         {title}
       </h1>
