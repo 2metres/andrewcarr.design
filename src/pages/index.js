@@ -2,7 +2,6 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 import Img from "gatsby-image"
 
@@ -26,13 +25,13 @@ const IndexPage = () => {
           }
         }
       }
-      images: allFile(filter: {extension: {regex: "/(jpg)|(png)|(jpeg)/"}, relativeDirectory: {eq: ""}}) {
+      images: allFile(filter: {extension: {regex: "/(jpg)|(png)|(jpeg)/"}}) {
         edges {
           node {
             id
             base
             childImageSharp {
-              fluid(maxWidth: 300, maxHeight: 300) {
+              fluid(maxWidth: 300, maxHeight: 300, fit: CONTAIN) {
                 base64
                 aspectRatio
                 src
@@ -60,7 +59,7 @@ const IndexPage = () => {
               projectLink,
               imagePrefix,
               subProject,
-              areas,
+              /* areas, */
             }
           } = project
 
@@ -74,6 +73,7 @@ const IndexPage = () => {
               style={{
                 background,
               }}
+              key={idx}
             >
               <div className="container mx-auto">
                 <h2 className="text-4xl font-display uppercase font-black">{ title }</h2>
@@ -84,7 +84,7 @@ const IndexPage = () => {
                     <a
                       className="btn btn-blue my-8 font-display"
                       href={projectLink}
-                      rel="external"
+                      rel="noopener noreferrer"
                       target="_blank"
                     >
                       Project Link
@@ -93,12 +93,12 @@ const IndexPage = () => {
                 }
                 {
                   !!images && images.map(i => (
-                    <Img fluid={[i.fluid]} />
+                    <Img fluid={[i.fluid]} key={i.fluid.src} />
                   ))
                 }
                 {
                   !!subProject && subProject.map(s => (
-                    <div className="mb-12">
+                    <div className="mb-12" key={s.title+s.description}>
                       <h4 className="text-2xl font-display">{ s.title }</h4>
                       {!!s.description && <p className="mt-2 text-lg font-body font-light">{s.description}</p>}
                     </div>
